@@ -23,8 +23,7 @@ public class DBConnector {
 			//接続情報から自分のパソコンにインストールされているMySQLへ接続する準備が整う
 			con = (Connection) DriverManager.getConnection(url, user, password);
 
-		} catch (ClassNotFoundException e){
-
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 
 		} catch(SQLException e) {

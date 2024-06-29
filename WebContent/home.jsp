@@ -12,7 +12,7 @@
         <meta http-equiv="imagetoolbar" content="no" />
         <meta name="description" content="" />
         <meta name="keywords" content="" />
-        <title>home画面</title>
+        <title>Home画面</title>
 
         <style type="text/css">
 
@@ -60,7 +60,6 @@ table {
     background-color: black;
     clear: both;
 }
-
         </style>
     </head>
     <body>
