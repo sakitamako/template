@@ -48,9 +48,11 @@ public class BuyItemDAO {
 			//⑥sql文の?に入れる値をsetする
 			ResultSet resultSet = preparedStatement.executeQuery();
 
-
+			//もしsqlから取得したデータが存在していれば下に一行ずらすこと
+			//データが存在していれば戻り値を true で返す。存在しなければ falseで返す
 			if (resultSet.next()) {
 
+				//DTOファイルに格納しているデータをセットする
 				buyItemDTO.setId(resultSet.getInt("id"));
 				buyItemDTO.setItemName(resultSet.getString("item_name"));
 				buyItemDTO.setItemPrice(resultSet.getString("item_price"));
