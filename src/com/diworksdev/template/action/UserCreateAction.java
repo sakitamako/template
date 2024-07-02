@@ -7,10 +7,11 @@ import com.opensymphony.xwork2.ActionSupport;
 //struts2が持つActionSupportというクラスを継承
 //（Actionクラスは基本的にこのクラスを継承）
 //LoginAciton（子クラス） extends（継承） ActionSupport（親クラス）
-public class HomeAction extends ActionSupport {
+public class UserCreateAction extends ActionSupport {
 
-	public String execute() {
+	public String ececute() {
 		return SUCCESS;
 
 	}
+
 }
