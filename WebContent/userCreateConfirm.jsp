@@ -81,7 +81,7 @@ table {
                                 <label>ログインID：</label>
                             </td>
                             <td>
-                                <s:prorerty value="loginUserId" escape="false" />
+                                <s:property value="loginUserId" escape="false" />
                             </td>
                         </tr>
                         <tr id="box">
@@ -89,7 +89,7 @@ table {
                                 <label>ログインPASS：</label>
                             </td>
                             <td>
-                                <s:prorerty value="loginPassword" escape="false" />
+                                <s:property value="loginPassword" escape="false" />
                             </td>
                         </tr>
                         <tr id="box">
@@ -108,6 +108,9 @@ table {
                     </s:form>
                 </table>
             </div>
+        </div>
+        <div id="footer">
+            <div id="pr"></div>
         </div>
     </body>
 </html>
