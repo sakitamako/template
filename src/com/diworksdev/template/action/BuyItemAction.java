@@ -1,11 +1,9 @@
 package com.diworksdev.template.action;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
 
-import com.diworksdev.template.dao.UserCreateCompleteDAO;
 import com.opensymphony.xwork2.ActionSupport;
 
 //Actionクラスでは、画面から送られてきたリクエストを取得する
@@ -18,77 +16,90 @@ import com.opensymphony.xwork2.ActionSupport;
 //実際の処理を持たない、ちょっと変わったクラス=implements
 //Java7までは実装は持てず、メソッドのシグニチャのみの定義
 //interfaceを使って型宣言を行うことができますが、メソッドの定義がないとプログラムは実行できないので、そこで使うのがimplements
-public class UserCreateCompleteAction extends ActionSupport implements SessionAware {
+public class BuyItemAction extends ActionSupport implements SessionAware {
 
 	//フィールド変数
 	//JSPから受け取る値、ここではnameとpassword を定義
 	//※必ずJSPでの定義と同じ名前にする
-	private String loginUserId;
-	private String loginPassword;
-	private String userName;
+	private int stock;
+	private String pay;
 
 	//Map<String, Object>=キーを値にマッピングするオブジェクト。
 	//マップには、同一のキーを複数登録できない。各キーは1つの値にしかマッピングできません。
     //このインタフェースは、インタフェースというよりむしろ完全に抽象クラスであったDictionaryクラスに代わるものです
 	//全てのクラス 変数 変数名
-	private Map<String,Object> session;
+	public Map<String, Object> session;
 
-	//全てのクラス 変数 変数名(struts) throws=例外を意図的に起こすことが出来る処理のこと。
-	public String execute() throws SQLException {
+	//このクラスのみ 変数 変数名
+	private String result;
 
-		//②LoginDAOとLoginDTOとbuyItemDAOのインスタンス化
-		UserCreateCompleteDAO userCreateCompleteDAO = new UserCreateCompleteDAO();
+	//全てのクラス 変数 変数名(struts)
+	public String execute() {
 
-		//sessionの中に記憶しているid,pass,nameを取得してテキストで表す
-		userCreateCompleteDAO.createUser(session.get("loginUserId").toString(), session.get("loginPassword").toString(), session.get("userName").toString());
+		//33行目＝サクセス
+		result = SUCCESS;
 
-		String result = SUCCESS;
+		//sessionの中に入っているデータを記憶する
+		session.put("stock", stock);
+
+		//Integerクラスは、プリミティブ型intの値をオブジェクトにラップします。Integer型のオブジェクトには、型がintの単一フィールドが含まれます。
+		//さらにこのクラスは、intをStringに、Stringをintに変換する各種メソッドや、intの処理時に役立つ定数およびメソッドも提供します。
+		//文字列の引数を解釈し、指定された基数 （数学的記数法の底）の整数値を返します
+		//sessionの中のデータをgetしてテキストで表す
+		int intStock = Integer.parseInt(session.get("stock").toString());
+		int intPrice = Integer.parseInt(session.get("buyItem_price").toString());
+
+		//セッションのデータを記憶する
+		session.put("buyItem_price", intStock * intPrice);
+
+		String payment;
+
+		//もしpayが1の場合現金払い
+		if (pay.equals("1")) {
+
+			payment = "現金払い";
+
+			//sessionに記憶
+			session.put("pay", payment);
+
+		} else {
+
+			payment = "クレジットカード";
+
+			//sessionに記憶
+			session.put("pay", payment);
+		}
 
 		//戻り値
 		//retに入った値を呼び出し元であるActionクラスに渡す
-		return result ;
+		return result;
 
 	}
 
 	//フィールド変数に対応したgetterとsetterを定義
-	//Actionクラスから呼び出され、loginUserIdフィールドの値をActionに渡す
-	public String getLoginUserId() {
-		return loginUserId;
+	//Actionクラスから呼び出され、stockフィールドの値をActionに渡す
+	public int getStock() {
+		return stock;
+	}
+
+	//フィールド変数に対応したgetterとsetterを定義
+	//DAOクラスから呼び出され、引数として受け取ったテーブルの値を自身のstockフィールドに格納
+	public void setStock(int stock) {
+		this.stock = stock;
 
 	}
 
 	//フィールド変数に対応したgetterとsetterを定義
-	//DAOクラスから呼び出され、引数として受け取ったテーブルの値を自身のloginUserIdフィールドに格納
-	public void setLoginUserId(String loginUserId) {
-		this.loginUserId = loginUserId;
+	//Actionクラスから呼び出され、payフィールドの値をActionに渡す
+	public String getPay() {
+		return pay;
 
 	}
 
 	//フィールド変数に対応したgetterとsetterを定義
-	//Actionクラスから呼び出され、loginPasswordフィールドの値をActionに渡す
-	public String getLoginPassword() {
-		return loginPassword;
-
-	}
-
-	//フィールド変数に対応したgetterとsetterを定義
-	//DAOクラスから呼び出され、引数として受け取ったテーブルの値を自身のloginPasswordフィールドに格納
-	public void setLoginPassword(String loginPassword) {
-		this.loginPassword = loginPassword;
-
-	}
-
-	//フィールド変数に対応したgetterとsetterを定義
-	//Actionクラスから呼び出され、userNameフィールドの値をActionに渡す
-	public String getUserName() {
-		return userName;
-
-	}
-
-	//フィールド変数に対応したgetterとsetterを定義
-	//DAOクラスから呼び出され、引数として受け取ったテーブルの値を自身のuserNameフィールドに格納
-	public void setUserName(String userName) {
-		this.userName = userName;
+	//DAOクラスから呼び出され、引数として受け取ったテーブルの値を自身のpayフィールドに格納
+	public void setPay(String pay) {
+		this.pay = pay;
 
 	}
 
@@ -106,4 +117,5 @@ public class UserCreateCompleteAction extends ActionSupport implements SessionAw
 		this.session = session;
 
 	}
+
 }
