@@ -75,7 +75,7 @@ table {
             <div>
                 <p>購入手続き完了いたしました！</p>
                 <div>
-                    <a herf='<s:url action="MyPageAction" />'>マイページ</a>
+                    <a href='<s:url action="MyPageAction" />'>マイページ</a>
                     <span>から購入履歴の確認が可能です！</span>
                 </div>
             </div>

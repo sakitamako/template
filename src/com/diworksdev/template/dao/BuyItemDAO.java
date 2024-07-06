@@ -52,7 +52,7 @@ public class BuyItemDAO {
 			//データが存在していれば戻り値を true で返す。存在しなければ falseで返す
 			if (resultSet.next()) {
 
-				//DTOファイルに格納しているデータをセットする
+				//もしresultsetに入っている値が存在していればDTOに格納する
 				buyItemDTO.setId(resultSet.getInt("id"));
 				buyItemDTO.setItemName(resultSet.getString("item_name"));
 				buyItemDTO.setItemPrice(resultSet.getString("item_price"));

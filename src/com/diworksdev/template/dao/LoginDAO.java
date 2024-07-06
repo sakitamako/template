@@ -58,6 +58,7 @@ public class LoginDAO {
 			//データが存在していれば戻り値を true で返す。存在しなければ falseで返す
 			if (resultSet.next()) {
 
+				//もしresultsetに入っている値が存在していればDTOに格納する
 				loginDTO.setLoginId(resultSet.getString("login_id"));
 				loginDTO.setLoginPassword(resultSet.getString("login_pass"));
 				loginDTO.setUserName(resultSet.getString("user_name"));
