@@ -102,10 +102,10 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 		//そうでない場合、もしDAOで取得した値と０が等しい場合
 		} else if(res == 0) {
 
-		}
-
 		//sessionに記憶している下記を表示する
 		session.put("message", "商品情報の削除に失敗しました。");
+
+		}
 
 	}
 
