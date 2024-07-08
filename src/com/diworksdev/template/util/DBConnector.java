@@ -16,6 +16,7 @@ public class DBConnector {
 	//データベース接続パスワード
 	private static String password = "root";
 
+	//全てのクラス 変数 変数名
 	public Connection getConnection() {
 
 		//接続オブジェクトの定義
@@ -28,16 +29,17 @@ public class DBConnector {
 			//tryの中にはエラーが発生しそうな処理を書く
 			Class.forName(driverName);
 
+			//ドライバーがロードされ使えるような状態にしている、覚える。
 			//接続情報から自分のパソコンにインストールされているMySQLへ接続する準備が整う
 			con = (Connection) DriverManager.getConnection(url, user, password);
 
-			//tryの中でエラーが発生した場合、catchが受け取り
-			//例外がスローされる原因となったエラーまたは動作の説明を返します
+		//tryの中でエラーが発生した場合、catchが受け取り
+		//例外がスローされる原因となったエラーまたは動作の説明を返します
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 
-			//tryの中でエラーが発生した場合、catchが受け取り
-			//例外がスローされる原因となったエラーまたは動作の説明を返します
+		//tryの中でエラーが発生した場合、catchが受け取り
+		//例外がスローされる原因となったエラーまたは動作の説明を返します
 		} catch(SQLException e) {
 			e.printStackTrace();
 

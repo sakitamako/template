@@ -1,10 +1,15 @@
+/*クライアントがSQLステートメントをサーバーに送信するために使用する文字セット*/
 set names utf8;
+/*MySQLで外部キー制約を適用しているテーブルにはDROP TABLEができない
+ * 一時的に外部キー制約を無効にすることができる*/
 set foreign_key_checks = 0;
+/*DROP TABLE IF EXISTS でテーブルが存在すれば削除する*/
 drop database if exists ecsite;
-
+/*もし存在しなければデータベースecsiteを作成*/
 create database if not exists ecsite;
 use ecsite;
 
+/*DROP TABLE IF EXISTS でテーブルが存在すれば削除する*/
 drop table if exists login_user_transaction;
 
 create table login_user_transaction(
