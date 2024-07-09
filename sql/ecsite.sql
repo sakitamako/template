@@ -29,7 +29,6 @@ drop table if exists item_info_transaction;
 
 /*テーブルを作成する
  *テーブルの中でただ一つのデータを特定する＝primary key
- *データベーステーブルのカラムに適用される制約の一つで、そのカラムに重複した値が入らないようにする制約＝unique
  *文字列格納＝varchar
  *小数を含まない値を扱うためのデータ型＝int*/
 create table item_info_transaction(
@@ -45,7 +44,6 @@ drop table if exists user_buy_item_transaction;
 
 /*テーブルを作成する
  *テーブルの中でただ一つのデータを特定する＝primary key
- *データベーステーブルのカラムに適用される制約の一つで、そのカラムに重複した値が入らないようにする制約＝unique
  *文字列格納＝varchar
  *小数を含まない値を扱うためのデータ型＝int*/
 create table user_buy_item_transaction(
@@ -59,6 +57,7 @@ insert_date datetime,
 delete_date datetime);
 
 /*データベースのテーブル上にデータを登録する際に使用されるステートメントの構文=INSERT INTO
- *1 つ以上の行のセットをテーブルとして返す＝VALUES */
+ *1 つ以上の行のセットをテーブルとして返す＝VALUES
+ *作成したテーブルに情報を格納する*/
 INSERT INTO item_info_transaction(item_name, item_price, item_stock) VALUES("ノ ー ト Book", 100, 50);
 INSERT INTO login_user_transaction(login_id, login_pass, user_name) VALUES("internous", "internous01", "test");
