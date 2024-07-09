@@ -7,13 +7,15 @@ import java.sql.ResultSet;
 import com.diworksdev.template.dto.LoginDTO;
 import com.diworksdev.template.util.DBConnector;
 
+//ログイン認証機能
 //DAOクラスでは、Actionから送られてきた情報を使ってDBへ問い合わせを行うファイル
 //問い合わせて取得した値をDTOクラスに格納するファイル
 public class LoginDAO {
 
 	//①クラス、メソッドの定義
-	//LoginDTO型を最後に呼び出し元に渡すので、LoginDTO型を戻り値にしたメソッドを作る
+	//DTO型を最後に呼び出し元に渡すので、DTO型を戻り値にしたメソッドを作る
 	//Actionクラスの値を引数として受け取る
+	//String loginUserName追加したら、、、？
 	public LoginDTO getLoginUserInfo(String loginUserId, String loginPassword) {
 
 		//②DBConnectorのインスタンス化
@@ -34,6 +36,7 @@ public class LoginDAO {
 		//FROM 〇〇 〇〇という名前のテーブルからデータを選択する
 		//WHERE ＜条件＞抽出条件を指定
 		//login_user_transactionに入っているデータid=? pass=?に入る条件を満たしたデータがsqlに代入される
+		//user_name=?追加したら、、、？
 		String sql = "SELECT * FROM login_user_transaction where login_id=? and login_pass=?";
 
 		//try.catchはjavaの例外処理のための構文
@@ -46,12 +49,13 @@ public class LoginDAO {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
 			//⑥sql文の?に入れる値をsetする
+			//セキュリティを考慮し、javaではPreparedStatementを利用
 			preparedStatement.setString(1, loginUserId);
 			preparedStatement.setString(2, loginPassword);
+			//preparedStatement.setString(3, loginUserName);追加したら、、、？
 
 			//⑦executeQuery()/executeUpdate()で実行
-			//（select文の場合はexectuteQuery()を使う）
-			// select文のSQL文を実行するメソッドで戻り値はResultSet
+			//sql文の値をセットしたものがresultsetに入ってる
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			//下に1行ずらすこと
@@ -63,8 +67,10 @@ public class LoginDAO {
 				loginDTO.setLoginPassword(resultSet.getString("login_pass"));
 				loginDTO.setUserName(resultSet.getString("user_name"));
 
-				//もし(“login_id”) と nullが等しくない場合
+				//もしresultsetに入っている値(“login_id”) と nullが等しくない場合
 				if (resultSet.getString("login_id") != null) {
+
+					//DTOにtrueを格納する
 					loginDTO.setLoginFlg(true);
 
 				}

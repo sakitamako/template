@@ -10,6 +10,8 @@ import com.diworksdev.template.dto.BuyItemDTO;
 import com. diworksdev.template.dto.LoginDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
+
+//ログイン認証機能
 //Actionクラスでは、画面から送られてきたリクエストを取得する
 //内部処理に応じてDAOやDTOクラスを呼び出し、最終的に次のJSPへ値を返すファイル
 

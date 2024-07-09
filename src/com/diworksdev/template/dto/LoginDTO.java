@@ -1,5 +1,6 @@
 package com.diworksdev.template.dto;
 
+//ログイン認証機能
 //DTOクラスは、DAOがDBから取得した値をActionへ戻す時、値を格納するのに利用されるファイル
 public class LoginDTO {
 
@@ -9,7 +10,9 @@ public class LoginDTO {
 	private String loginPassword;
 	private String userName;
 
-	//このクラス  true （真）か false （偽）の値のみを取れる論理データ型 変数名＝false
+	//このクラスのみ  trueかfalseのデータが必ず入ることが決まっているデータ型
+	//boolean型を使う主な場面は、if文やfor文などの制御文での条件分岐のとき
+	//値のみを取れる論理データ型 変数名＝false
 	private boolean loginFlg = false;
 
 	//フィールド変数に対応したgetterとsetterを定義
@@ -53,7 +56,7 @@ public class LoginDTO {
 
 	}
 
-	//Actionクラスから呼び出され、loginFlgフィールドの値をActionに渡すa
+	//Actionクラスから呼び出され、loginFlgフィールドの値をActionに渡す
 	public boolean getLoginFlg() {
 		return loginFlg;
 

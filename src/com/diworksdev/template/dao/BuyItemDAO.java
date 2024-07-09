@@ -7,12 +7,13 @@ import java.sql.ResultSet;
 import com.diworksdev.template.dto.BuyItemDTO;
 import com.diworksdev.template.util.DBConnector;
 
+//ログイン認証機能
 //DAOクラスでは、Actionから送られてきた情報を使ってDBへ問い合わせを行うファイル
 //問い合わせて取得した値をDTOクラスに格納するファイル
 public class BuyItemDAO {
 
 	//①クラス、メソッドの定義
-	//LoginDTO型を最後に呼び出し元に渡すので、LoginDTO型を戻り値にしたメソッドを作る
+	//DTO型を最後に呼び出し元に渡すので、DTO型を戻り値にしたメソッドを作る
 	//Actionクラスの値を引数として受け取る
 	public BuyItemDTO getBuyItemInfo() {
 
@@ -24,16 +25,13 @@ public class BuyItemDAO {
 		//③getConnectionの呼び出し（DBと接続する）
 		Connection connection = dbConnector.getConnection();
 
-		//LoginDTOインスタンス化
+		//BuyItemDTOインスタンス化
 		//DTOと会話するためのコード
 		BuyItemDTO buyItemDTO = new BuyItemDTO();
 
-		//④sql文を書く：値は ? を入れておく（どんな値でも使いまわしできるようにするため）
-		//SELECT データを抽出する
-		//＊ テーブルに含まれる項目全て
-		//FROM 〇〇 〇〇という名前のテーブルからデータを選択する
-		//WHERE ＜条件＞抽出条件を指定
-		//item_info_transactionに入っているデータid, item_name, item_price入る条件を満たしたデータがsqlに代入される
+		//④sql文を書く
+		//SELECT item_info_transactionのデータを抽出する
+		//item_stock追加したら、、、？
 		String sql = "SELECT id, item_name, item_price FROM item_info_transaction";
 
 		//try.catchはjavaの例外処理のための構文
@@ -56,6 +54,7 @@ public class BuyItemDAO {
 				buyItemDTO.setId(resultSet.getInt("id"));
 				buyItemDTO.setItemName(resultSet.getString("item_name"));
 				buyItemDTO.setItemPrice(resultSet.getString("item_price"));
+				//buyItemDTO.setItemPrice(resultSet.getString("item_stock"));追加したら、、、？
 			}
 
 		//処理中にSQL関連のエラーが発生した際に実行する処理
