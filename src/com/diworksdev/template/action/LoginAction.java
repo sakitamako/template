@@ -57,8 +57,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		//メソッドの戻り値「ret」 String ret = ERROR; を定義し、初期値としてERRORを代入
 		result = ERROR;
 
-		//JSPから送られてきたnameとpasswordを引数として、
-		//LoginDAOクラスのselectメソッドを呼び出す
+		//JSPから送られてきた情報を引数として、
+		//LoginDAOクラスのgetLoginUserInfoメソッドを呼び出す
 		//その後、DAOで取得した結果をLoginDTOに代入する
 		loginDTO = loginDAO.getLoginUserInfo(loginUserId, loginPassword);
 
@@ -69,11 +69,13 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		//ログイン認証が成功した場合、次の画面で
 		//「商品情報」が必要なため商品情報を取得します。
 		//もしLoginDTOの中に入っているsessionの要素からloginUserとgetLoginFlg()を取得した場合success
-		if (((LoginDTO) session.get("loginUser")).getLoginFlg()) {
+		if (((LoginDTO)session.get("loginUser")).getLoginFlg()) {
 
 			result = SUCCESS;
 
 			//buyItemDTOファイルの17行目
+			//buyItemDAOクラスのgetBuyItemInfoメソッドを呼び出す
+			//その後、DAOで取得した結果をbuyItemDTOに代入する
 			BuyItemDTO buyItemDTO = buyItemDAO.getBuyItemInfo();
 
 			//Map を使った場合には、put()で要素を記憶できる
