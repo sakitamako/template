@@ -3,6 +3,8 @@ package com.diworksdev.template.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//ユーザー登録機能
+
 //全てのクラス 変数
 public class DateUtil {
 
