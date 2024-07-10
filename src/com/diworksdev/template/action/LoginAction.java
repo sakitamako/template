@@ -2,6 +2,11 @@ package com.diworksdev.template.action;
 
 import java.util.Map;
 
+/*アクションクラスにorg.apache.struts2.interceptor.SessionAwareインタフェースをimplementsし、
+ * インタフェースが要求するメソッドsetSessionを実装します。
+ * setSessionにはセッションコンテキスト相当のMapのオブジェクトが渡されますので、
+ * アクションクラスの属性としてそのオブジェクトを保持しておく必要があります。
+ * あとは、このMapオブジェクトへ保存したいオブジェクトをputするだけ*/
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.diworksdev.template.dao.BuyItemDAO;
@@ -20,8 +25,11 @@ import com.opensymphony.xwork2.ActionSupport;
 //LoginAciton（子クラス） extends（継承） ActionSupport（親クラス）
 //すでにあるクラスとにたクラスを作る場合、元のクラスに必要な機能だけを追加する形で、新しいクラスを作ることを継承
 //実際の処理を持たない、ちょっと変わったクラス=implements
-//Java7までは実装は持てず、メソッドのシグニチャのみの定義
 //interfaceを使って型宣言を行うことができますが、メソッドの定義がないとプログラムは実行できないので、そこで使うのがimplements
+/*Actionクラスにて、implements SessionAware を宣言（ActionSupport.SessionAware=インターフェース）
+実装メソッドである setSession(Map session)にて、ActionのフィールドへHttpSessionのオブジェクトを格納する処理を実装する。this.session = session; でほぼ十分。
+上記の手順で実装したフィールドを用意する
+これにより、このActionクラスのsessionフィールドへ、Struts2が自動的にHttpSessionの内容をMapの型で格納します。*/
 public class LoginAction extends ActionSupport implements SessionAware {
 
 	//フィールド変数
