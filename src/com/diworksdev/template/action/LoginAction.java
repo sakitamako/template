@@ -33,7 +33,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class LoginAction extends ActionSupport implements SessionAware {
 
 	//フィールド変数
-	//JSPから受け取る値、ここではnameとpassword を定義
+	//JSPから受け取る値
 	//※必ずJSPでの定義と同じ名前にする
 	private String loginUserId;
 	private String loginPassword;

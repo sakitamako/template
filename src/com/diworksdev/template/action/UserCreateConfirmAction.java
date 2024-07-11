@@ -13,15 +13,18 @@ import com.opensymphony.xwork2.ActionSupport;
 
 //struts2が持つActionSupportというクラスを継承
 //（Actionクラスは基本的にこのクラスを継承）
-//LoginAciton（子クラス） extends（継承） ActionSupport（親クラス）
+//UserCreateConfirmAction（子クラス） extends（継承） ActionSupport（親クラス）
 //すでにあるクラスとにたクラスを作る場合、元のクラスに必要な機能だけを追加する形で、新しいクラスを作ることを継承
 //実際の処理を持たない、ちょっと変わったクラス=implements
-//Java7までは実装は持てず、メソッドのシグニチャのみの定義
 //interfaceを使って型宣言を行うことができますが、メソッドの定義がないとプログラムは実行できないので、そこで使うのがimplements
+/*Actionクラスにて、implements SessionAware を宣言（ActionSupport.SessionAware=インターフェース）
+実装メソッドである setSession(Map session)にて、ActionのフィールドへHttpSessionのオブジェクトを格納する処理を実装する。this.session = session; でほぼ十分。
+上記の手順で実装したフィールドを用意する
+これにより、このActionクラスのsessionフィールドへ、Struts2が自動的にHttpSessionの内容をMapの型で格納します。*/
 public class UserCreateConfirmAction extends ActionSupport implements SessionAware {
 
 	//フィールド変数
-	//JSPから受け取る値、ここではnameとpassword を定義
+	//JSPから受け取る値
 	//※必ずJSPでの定義と同じ名前にする
 	private String loginUserId;
 	private String loginPassword;
@@ -31,9 +34,9 @@ public class UserCreateConfirmAction extends ActionSupport implements SessionAwa
 	//マップには、同一のキーを複数登録できない。各キーは1つの値にしかマッピングできません。
     //このインタフェースは、インタフェースというよりむしろ完全に抽象クラスであったDictionaryクラスに代わるものです
 	//全てのクラス 変数 変数名
-	public Map<String,Object> session;
+	public Map<String, Object> session;
 
-	//このクラス 変数 変数名
+	//このクラスのみ 変数 変数名
 	private String errorMessage;
 
 	//メソッド名は「execute」
@@ -43,9 +46,13 @@ public class UserCreateConfirmAction extends ActionSupport implements SessionAwa
 		//メソッドの戻り値 String result = success; を定義し、初期値としてseccessを代入
 		String result = SUCCESS;
 
-		//もし下記が全てともにtrueの場合、sessionに記憶したid/pass/nameを表示
+		//int型などのプリミティブ型で２つの値が等しいか比較する場合は”==”演算子で比較しますがString型などの参照型の場合はequalsメソッドで比較する
+		//loginUserIdと("")の値が等しい場合、かつ、loginPasswordと("")の値が等しい場合、かつ、userNameと("")の値が等しい場合
+		//! aがtrueの場合処理は実行しない
+		//&& aとbが共にtrueの時に処理を実行する
 		if (!(loginUserId.equals("")) && !(loginPassword.equals("")) && !(userName.equals(""))) {
 
+			//sessionのなかに記憶する保存する
 			session.put("loginUserId", loginUserId);
 			session.put("loginPassword", loginPassword);
 			session.put("userName", userName);
