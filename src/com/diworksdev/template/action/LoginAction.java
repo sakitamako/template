@@ -68,7 +68,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		//入力値からユーザー情報の検索を行います。
 		//ログイン認証が成功した場合、次の画面で
 		//「商品情報」が必要なため商品情報を取得します。
-		//もしLoginDTOの中に入っているsessionの要素からloginUserとgetLoginFlg()を取得した場合success
+		//もしLoginDTOの中に入っているsessionからloginUserとgetLoginFlg()を取得した場合success
 		if (((LoginDTO)session.get("loginUser")).getLoginFlg()) {
 
 			result = SUCCESS;
