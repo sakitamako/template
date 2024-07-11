@@ -18,12 +18,15 @@ import com.opensymphony.xwork2.ActionSupport;
 //LoginAciton（子クラス） extends（継承） ActionSupport（親クラス）
 //すでにあるクラスとにたクラスを作る場合、元のクラスに必要な機能だけを追加する形で、新しいクラスを作ることを継承
 //実際の処理を持たない、ちょっと変わったクラス=implements
-//Java7までは実装は持てず、メソッドのシグニチャのみの定義
 //interfaceを使って型宣言を行うことができますが、メソッドの定義がないとプログラムは実行できないので、そこで使うのがimplements
+/*Actionクラスにて、implements SessionAware を宣言（ActionSupport.SessionAware=インターフェース）
+実装メソッドである setSession(Map session)にて、ActionのフィールドへHttpSessionのオブジェクトを格納する処理を実装する。this.session = session; でほぼ十分。
+上記の手順で実装したフィールドを用意する
+これにより、このActionクラスのsessionフィールドへ、Struts2が自動的にHttpSessionの内容をMapの型で格納します。*/
 public class UserCreateCompleteAction extends ActionSupport implements SessionAware {
 
 	//フィールド変数
-	//JSPから受け取る値、ここではnameとpassword を定義
+	//JSPから受け取る値
 	//※必ずJSPでの定義と同じ名前にする
 	private String loginUserId;
 	private String loginPassword;
@@ -38,10 +41,10 @@ public class UserCreateCompleteAction extends ActionSupport implements SessionAw
 	//全てのクラス 変数 変数名(struts) throws=例外を意図的に起こすことが出来る処理のこと。
 	public String execute() throws SQLException {
 
-		//②LoginDAOとLoginDTOとbuyItemDAOのインスタンス化
+		//②userCreateCompleteDAOのインスタンス化
 		UserCreateCompleteDAO userCreateCompleteDAO = new UserCreateCompleteDAO();
 
-		//sessionの中に記憶しているid,pass,nameを取得してテキストで表す
+		//DAOのcreateUserに記憶しているid,pass,nameを取得してテキストで表す
 		userCreateCompleteDAO.createUser(session.get("loginUserId").toString(), session.get("loginPassword").toString(), session.get("userName").toString());
 
 		String result = SUCCESS;

@@ -17,12 +17,10 @@ public class UserCreateCompleteDAO {
 	private DateUtil dateUtil = new DateUtil();
 
 	//このクラスのみ 変数 変数名
-	//④sql文を書く：値は ? を入れておく（どんな値でも使いまわしできるようにするため）
-	//SELECT データを抽出する
-	//＊ テーブルに含まれる項目全て
-	//FROM 〇〇 〇〇という名前のテーブルからデータを選択する
-	//WHERE ＜条件＞抽出条件を指定
-	//login_user_transactionに入っているデータid, pass, name, dateに入る条件を満たしたデータがsqlに代入される
+	//④sql文を書く：値は ? を入れておく（どんな値でも使いまわしできるようにするため
+	/*データベースのテーブル上にデータを登録する際に使用されるステートメントの構文=INSERT INTO
+	 *1 つ以上の行のセットをテーブルとして返す＝VALUES=中身のこと
+	 *作成したテーブルに情報を格納する*/
 	private String sql = "INSERT INTO login_user_transaction(login_id, login_pass, user_name, insert_date) VALUES(?, ?, ?, ?)";
 
 	//全てのクラス  throws=例外を意図的に起こすことが出来る処理のこと。
