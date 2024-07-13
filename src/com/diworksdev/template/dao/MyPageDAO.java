@@ -8,13 +8,15 @@ import java.sql.SQLException;
 import com.diworksdev.template.dto.MyPageDTO;
 import com.diworksdev.template.util.DBConnector;
 
+//購入履歴機能トの作成
+
 //DAOクラスでは、Actionから送られてきた情報を使ってDBへ問い合わせを行うファイル
 //問い合わせて取得した値をDTOクラスに格納するファイル
 public class MyPageDAO {
 
 	//①クラス、メソッドの定義
-	//LoginDTO型を最後に呼び出し元に渡すので、LoginDTO型を戻り値にしたメソッドを作る
-	//Actionクラスの値を引数として受け取る
+	//DTO型を最後に呼び出し元に渡すので、DTO型を戻り値にしたメソッドを作る
+	//Actionクラスの値を引数として受け取る,throws=例外を意図的に起こすことが出来る処理のこと。
 	public MyPageDTO getMyPageUserInfo(String item_transaction_id, String user_master_id) throws SQLException {
 
 		//②DBConnectorのインスタンス化
@@ -36,7 +38,7 @@ public class MyPageDAO {
 		//WHERE ＜条件＞抽出条件を指定
 		//データベースに入ってる条件を満たしたデータがsqlに代入される
 		//JOINの左側のテーブルが結合条件に一致しなくてもレコードをは返します
-		//理解浅い
+		//ORDER BY=降順に並べ替える
 		String sql = "SELECT iit.item_name, ubit.total_price, ubit.total_count, "
 				+ "ubit.pay FROM user_buy_item_transaction ubit LEFT JOIN item_info_transaction iit ON "
 				+ "ubit.item_transaction_id = iit.id WHERE "
@@ -93,8 +95,8 @@ public class MyPageDAO {
 	}
 
 	//①クラス、メソッドの定義
-	//LoginDTO型を最後に呼び出し元に渡すので、MypageDTO型を戻り値にしたメソッドを作る
-	//Actionクラスの値を引数として受け取る
+	//全てのクラス 整数数値 変数名 引数
+	//Actionクラスの値を引数として受け取る,throws=例外を意図的に起こすことが出来る処理のこと。
 	public int buyItemHistoryDelete(String item_transaction_id, String user_master_id) throws SQLException {
 
 		//②DBConnectorのインスタンス化
@@ -105,6 +107,10 @@ public class MyPageDAO {
 		//③getConnectionの呼び出し（DBと接続する）
 		Connection connection = dbConnector.getConnection();
 
+		//DELETE=削除
+		//FROM 〇〇 〇〇という名前のテーブルからデータを選択する
+		//WHERE ＜条件＞抽出条件を指定
+		//④sql文を書く：値は ? を入れておく（どんな値でも使いまわしできるようにするため）
 		String sql = "DELETE FROM user_buy_item_transaction WHERE item_transaction_id = ? AND user_master_id = ?";
 
 		//tryの中にはエラーが発生しそうな処理を書く

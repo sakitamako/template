@@ -9,6 +9,8 @@ import com.diworksdev.template.dao.MyPageDAO;
 import com.diworksdev.template.dto.MyPageDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
+//購入履歴機能トの作成
+
 //Actionクラスでは、画面から送られてきたリクエストを取得する
 //内部処理に応じてDAOやDTOクラスを呼び出し、最終的に次のJSPへ値を返すファイル
 
@@ -17,7 +19,11 @@ import com.opensymphony.xwork2.ActionSupport;
 //LoginAciton（子クラス） extends（継承） ActionSupport（親クラス）
 //すでにあるクラスとにたクラスを作る場合、元のクラスに必要な機能だけを追加する形で、新しいクラスを作ることを継承
 //実際の処理を持たない、ちょっと変わったクラス=implements
-//Java7までは実装は持てず、メソッドのシグニチャのみの定義
+//interfaceを使って型宣言を行うことができますが、メソッドの定義がないとプログラムは実行できないので、そこで使うのがimplements
+/*Actionクラスにて、implements SessionAware を宣言（ActionSupport.SessionAware=インターフェース）
+実装メソッドである setSession(Map session)にて、ActionのフィールドへHttpSessionのオブジェクトを格納する処理を実装する。this.session = session; でほぼ十分。
+上記の手順で実装したフィールドを用意する
+これにより、このActionクラスのsessionフィールドへ、Struts2が自動的にHttpSessionの内容をMapの型で格納します。*/
 public class MyPageAction extends ActionSupport implements SessionAware {
 
 	//Map<String, Object>=キーを値にマッピングするオブジェクト。
@@ -43,10 +49,10 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 		MyPageDTO myPageDTO = new MyPageDTO();
 
 
-		// 商品履歴を削除しない場合
+		// もしdeleteFlgとnullが等しい場合
 		if (deleteFlg == null) {
 
-			//sessionの中に入っているidを取得してテキストで表示する
+			//sessionの中に入っているデータを取得してテキストで表示する
 			String item_transaction_id = session.get("id").toString();
 			String user_master_id = session.get("login_user_id").toString();
 
@@ -62,7 +68,7 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 			session.put("total_payment", myPageDTO.getPayment());
 			session.put("message", "");
 
-		// 商品履歴を削除する場合
+		// そうでない場合、もしdeleteFlgと１が等しい場合データ削除
 		} else if(deleteFlg.equals("1")) {
 			delete();
 
@@ -91,7 +97,7 @@ public class MyPageAction extends ActionSupport implements SessionAware {
 		//JSPから送られてきたidを引数として、
 		//DAOクラスのbuyItemHistoryDeleteメソッドを呼び出す
 		//その後、DAOで取得した結果をDTOに代入する
-		int res = myPageDAO.buyItemHistoryDelete( item_transaction_id, user_master_id);
+		int res = myPageDAO.buyItemHistoryDelete(item_transaction_id, user_master_id);
 
 		//もしDAOで取得した値が０より大きい場合
 		if (res > 0) {

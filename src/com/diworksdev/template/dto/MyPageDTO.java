@@ -1,5 +1,7 @@
 package com.diworksdev.template.dto;
 
+//購入履歴機能トの作成
+
 //DTOクラスは、DAOがDBから取得した値をActionへ戻す時、値を格納するのに利用されるファイル
 public class MyPageDTO {
 
