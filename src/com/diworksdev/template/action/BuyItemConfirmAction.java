@@ -18,6 +18,11 @@ import com.opensymphony.xwork2.ActionSupport;
 //LoginAciton（子クラス） extends（継承） ActionSupport（親クラス）
 //すでにあるクラスとにたクラスを作る場合、元のクラスに必要な機能だけを追加する形で、新しいクラスを作ることを継承
 //実際の処理を持たない、ちょっと変わったクラス=implements
+//interfaceを使って型宣言を行うことができますが、メソッドの定義がないとプログラムは実行できないので、そこで使うのがimplements
+/*Actionクラスにて、implements SessionAware を宣言（ActionSupport.SessionAware=インターフェース）
+実装メソッドである setSession(Map session)にて、ActionのフィールドへHttpSessionのオブジェクトを格納する処理を実装する。this.session = session; でほぼ十分。
+上記の手順で実装したフィールドを用意する
+これにより、このActionクラスのsessionフィールドへ、Struts2が自動的にHttpSessionの内容をMapの型で格納します。*/
 //Java7までは実装は持てず、メソッドのシグニチャのみの定義
 //interfaceを使って型宣言を行うことができますが、メソッドの定義がないとプログラムは実行できないので、そこで使うのがimplements
 public class BuyItemConfirmAction extends ActionSupport implements SessionAware {
@@ -26,7 +31,7 @@ public class BuyItemConfirmAction extends ActionSupport implements SessionAware 
 	//マップには、同一のキーを複数登録できない。各キーは1つの値にしかマッピングできません。
     //このインタフェースは、インタフェースというよりむしろ完全に抽象クラスであったDictionaryクラスに代わるものです
 	//全てのクラス 変数 変数名
-	private Map<String,Object> session;
+	private Map<String, Object> session;
 
 	//全てのクラス 変数 変数名(struts) throws=例外を意図的に起こすことが出来る処理のこと。
 	public String execute() throws SQLException {
@@ -34,7 +39,7 @@ public class BuyItemConfirmAction extends ActionSupport implements SessionAware 
 		//②LoginDAOとLoginDTOとbuyItemDAOのインスタンス化
 		BuyItemCompleteDAO buyItemCompleteDAO = new BuyItemCompleteDAO();
 
-		//sessionの中に記憶しているid,pass,nameを取得してテキストで表す
+		//sessionの中に記憶しているデータを取得してテキストで表す
 		buyItemCompleteDAO.buyItemeInfo(
 				session.get("id").toString(),
 				session.get("login_user_id").toString(),
@@ -42,9 +47,10 @@ public class BuyItemConfirmAction extends ActionSupport implements SessionAware 
 				session.get("stock").toString(),
 				session.get("pay").toString());
 
+		//BuyItemAction.java
 		String result = SUCCESS;
 
-		//戻り値
+		//戻り値「出力」に相当する値
 		//retに入った値を呼び出し元であるActionクラスに渡す
 		return result;
 	}

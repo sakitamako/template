@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import com.diworksdev.template.util.DBConnector;
 import com.diworksdev.template.util.DateUtil;
 
+//商品購入機能
+
 //DAOクラスでは、Actionから送られてきた情報を使ってDBへ問い合わせを行うファイル
 //問い合わせて取得した値をDTOクラスに格納するファイル
 public class BuyItemCompleteDAO {
@@ -16,14 +18,12 @@ public class BuyItemCompleteDAO {
 
 	//このクラスのみ 変数 変数名
 	//④sql文を書く：値は ? を入れておく（どんな値でも使いまわしできるようにするため）
-	//SELECT データを抽出する
-	//＊ テーブルに含まれる項目全て
-	//FROM 〇〇 〇〇という名前のテーブルからデータを選択する
-	//WHERE ＜条件＞抽出条件を指定
-	//login_user_transactionに入っているデータid, pass, name, dateに入る条件を満たしたデータがsqlに代入される
+	/*データベースのテーブル上にデータを登録する際に使用されるステートメントの構文=INSERT INTO
+	 *1 つ以上の行のセットをテーブルとして返す＝VALUES=中身のこと
+	 *作成したテーブルに情報を格納する*/
 	private String sql = "INSERT INTO user_buy_item_transaction(item_transaction_id, total_price, total_count, user_master_id, pay, insert_date)VALUES(?, ?, ?, ?, ?, ?)";
 
-	//全てのクラス  throws=例外を意図的に起こすことが出来る処理のこと。
+	//全てのクラス 変数 変数名 引数（関数に値を渡すこと）  throws=例外を意図的に起こすことが出来る処理のこと。
 	public void buyItemeInfo(String item_transaction_id, String user_master_id, String total_price, String total_count, String pay) throws SQLException {
 
 		//②DBConnectorのインスタンス化
