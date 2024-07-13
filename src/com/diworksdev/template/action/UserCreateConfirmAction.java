@@ -47,10 +47,24 @@ public class UserCreateConfirmAction extends ActionSupport implements SessionAwa
 		String result = SUCCESS;
 
 		//int型などのプリミティブ型で２つの値が等しいか比較する場合は”==”演算子で比較しますがString型などの参照型の場合はequalsメソッドで比較する
-		//loginUserIdと("")の値が等しい場合、かつ、loginPasswordと("")の値が等しい場合、かつ、userNameと("")の値が等しい場合
+		//loginUserIdと空文字・何も入ってない時の値が等しい場合、かつ、loginPasswordと空文字・何も入ってない時の値が等しい場合、かつ、userNameと空文字・何も入ってない時の値が等しい場合はelse文に行く！
 		//! aとbとcがtrueの場合処理は実行しない
 		//&& aとbとcが共にtrueの時に処理を実行する
-		if (!(loginUserId.equals("")) && !(loginPassword.equals("")) && !(userName.equals(""))) {
+		if (loginUserId.equals("") == false && loginPassword.equals("") == false && userName.equals("") == false) {
+		//if (!(loginUserId.equals("")) && !(loginPassword.equals("")) && !(userName.equals(""))) {
+		//⇧同じ意味
+
+			// loginUserId.equals("") == true|false
+
+			//同じ意味
+			// loginUserId.equals("")
+			//   loginUserId.equals("") == true
+			//   loginUserId == "" ※Javaはこれだと動かない場合あるよ！
+
+			//同じ意味
+			// !(loginUserId.equals(""))
+			//   loginUserId.equals("") == false
+			//   loginUserId != "" ※Javaはこれだと動かない場合あるよ！
 
 			//sessionのなかに記憶する保存する
 			session.put("loginUserId", loginUserId);
